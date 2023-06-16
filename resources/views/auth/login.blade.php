@@ -4,21 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Panel Login | Optishine</title>
+    <title>Admin Panel Login | Scripter</title>
     <link rel="stylesheet" href="{{ asset('admin-assets/css/admin_login.css') }}">
 </head>
 
 <body>
     <div class="workSpace">
         <div class="avatar" style="background: white;">
-            <div id="infinity">
-               <img src="{{ asset('admin-assets/images/optishinelogo.png')}}" style="margin-top: 28px;height: 90px" alt="">
+            <div id="infinity-round">
+                <img src="{{asset('assets/imgs/scripter.jpg')}}" style="margin-top: 10px; height: 90px; border-radius: 50%;" alt="">
             </div>
         </div>
+        
         <div class="left">
-            <img class="img-fluid" src="{{ asset('admin-assets/images/optishine.png') }}" alt="">
-            <h1 class="logo">Welcome to Optishine</h1>
-            <p>Online MLM Portal
+            <img class="img-fluid" src="{{asset('assets/imgs/scripter.jpg')}}" alt="">
+            <h1 class="logo">Welcome to Scripter</h1>
+            <p>Ready To Changes
             </p>
         </div>
         <div class="right">

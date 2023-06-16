@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
-		<title>@yield('title') | Optishine</title>
+		<title>@yield('title') | Scripter</title>
 		<meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}" />
 		<link rel="icon" href="{{ asset('admin-assets/images/favicon.ico')}}" type="image/x-icon">
 		<link href="{{ asset('admin-assets/css/app.min.css') }}" rel="stylesheet">
@@ -22,7 +22,7 @@
 		 <div class="page-loader-wrapper">
 			<div class="loader">
 				<div class="m-t-30">
-					<img class="loading-img-spin" src="{{ asset('admin-assets/images/optishinelogo.png')}}" alt="admin">
+					<img class="loading-img-spin" src="{{asset('assets/imgs/scripter.jpg')}}" alt="admin">
 				</div>
 				<p>Please wait...</p>
 			</div>
@@ -42,8 +42,8 @@
 						data-target="#navbar-collapse" aria-expanded="false"></a>
 					<a href="#" onClick="return false;" class="bars"></a>
 					<a class="navbar-brand" href="{{url('admin/dashboard')}}">
-						<img  style="height: 43px;"src="{{ asset('admin-assets/images/optishinelogo.png')}}" alt="" />
-						<span class="logo-name">Optishine</span>
+						<img  style="height: 43px;"src="{{asset('assets/imgs/scripter.jpg')}}" alt="" />
+						<span class="logo-name">Scripter-Panel</span>
 					</a>
 				</div>
 				<div class="collapse navbar-collapse" id="navbar-collapse">
@@ -182,8 +182,8 @@
 						<!-- #END# Notifications-->
 						<li class="dropdown user_profile" style="margin-right: 30px;">
 							<div class="dropdown-toggle" data-bs-toggle="dropdown">
-								<img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
-								style="border: 1px solid #cccccc; border-radius: 5px; width: 39px; height: auto;float:left; margin-right: 7px;">							</div>
+								<img src="{{asset('assets/imgs/scripter.jpg')}}" alt="" style="width:50px">
+							</div>
 							<ul class="dropdown-menu pullDown">
 								<li class="body">
 									<ul class="user_dw_menu">

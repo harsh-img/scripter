@@ -1,36 +1,17 @@
 @extends('layouts/master')
 
-@section('title',__('About List'))
+@section('title',__('Recycle List'))
 
 @section('content')
 
 <section class="content">
     <div class="container-fluid">
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<div class="card">
-					<div class="header">
-						<h2><i class="fa fa-th"></i>  Go To</h2>
-					</div>
-					<div class="body">
-						<div class="btn-group top-head-btn">
-                            <a class="btn-primary" href="{{ url('admin/about-me/add') }}">
-                                <i class="fa fa-plus"></i> Add About Me 
-							</a>
-                        </div>
-					</div>
-				</div>
-			</div>
-		</div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
 					<div class="header">
-						<h2><i class="fa fa-th"></i> About Me  List</h2>
+						<h2><i class="fa fa-th"></i>Recycle List</h2>
 					</div>
-					<div class="header">
-                        <h1>Visitor Count: {{ $visitorCount }}</h1>					
-                    </div>
                     <div class="body">
                         <div class="table-">
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -49,17 +30,17 @@
                                                         aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                                                         style="width: 126.333px;"
                                                         aria-label=" Name : activate to sort column ascending">
-                                                        Name
+                                                        Module Name
                                                     </th> 
                                                     <th class="center sorting" tabindex="0"
                                                     aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                                                     style="width: 126.333px;"
-                                                    aria-label=" Name : activate to sort column ascending"> Who Am i
+                                                    aria-label=" Name : activate to sort column ascending"> Deleted Name
                                                      </th> 
                                                     <th class="center sorting" tabindex="0"
                                                         aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                                                         style="width: 126.333px;"
-                                                        aria-label=" Name : activate to sort column ascending"> Image
+                                                        aria-label=" Name : activate to sort column ascending"> Restore
                                                     </th> 
                                                     <th class="center sorting" tabindex="0"
                                                         aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
@@ -69,17 +50,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="row_position">
-												@if(!empty($result))
-													@foreach($result as $key=>$value)
-														<tr class="gradeX odd"  id="{{ $value->id }}">
+												@if(!empty($daletedata))
+													@foreach($daletedata as $key=>$value)
+
+                                                    @php
+                                                    if($value['about_id'])
+                                                        $data = \App\Helpers\commonHelper::getaboutinfo($value['about_id']);
+                                                    else
+                                                        $data = \App\Helpers\commonHelper::getaboutinfo($value['testimonial_id']);
+                                                    @endphp
+                                                    
+														<tr class="gradeX odd"  id="recycle{{ $value->id }}">
 															<td class="center">{{ $key+1}}</td>
-                                                            <td class="center">{{ ucfirst($value['name']) }}</td>
-                                                            <td class="center">{{ ucfirst($value['short_description']) }}</td>
-															<td class="center"><img src="{{ asset('uploads/about/'.$value->image) }}" width="65px"/></td> 
-															
+                                                            <td class="center">{{ $data['moduleName'] }}</td>                                                            
+                                                            <td class="center">{{  $data['name'] }}</td>                                                            
+                                                            <td class="center">
+                                                                <button class="restore-button" data-restoreid="{{ $value->id }}" data-id="@if($value->about_id){{$value->about_id}}@else{{$value->testimonial_id}}@endif">Restore</button>
+                                                             </td>															
                                                             <td class="center">
                                                         
-                                                                <a title="Delete Brand" onclick="return confirm('Are you sure? You want to delete this About-Me.')" href="{{ url('admin/about-me/about-delete/'.$value['id'] )}}" class="btn btn-tbl-delete">
+                                                                <a title="Delete Brand" onclick="return confirm('Are you sure? You want to delete this About-Me.')" href="{{ url('admin/permanent-delete/'.$value['id'] )}}" class="btn btn-tbl-delete">
                                                                     <i class="fas fa-trash"></i>
                                                                 </a>
                                                             </td>
@@ -90,9 +80,9 @@
                                             <tfoot>
                                                 <tr>
                                                     <th class="center" rowspan="1" colspan="1">#</th>
-                                                    <th class="center" rowspan="1" colspan="1"> Name </th>	
-                                                    <th class="center" rowspan="1" colspan="1"> Who Am i </th>	
-                                                    <th class="center" rowspan="1" colspan="1"> Image </th>	
+                                                    <th class="center" rowspan="1" colspan="1"> Module Name </th>	
+                                                    <th class="center" rowspan="1" colspan="1"> Deleted Name </th>	
+                                                    <th class="center" rowspan="1" colspan="1"> Restore </th>	
                                                     <th class="center" rowspan="1" colspan="1"> Action </th>
                                                 </tr>
                                             </tfoot>
@@ -112,6 +102,32 @@
    
 @push('custom_js')
     
+<script>
   
+
+    $(document).ready(function() {
+        $('.restore-button').on('click', function() {
+            var id = $(this).data('id');
+            var restoreid = $(this).data('restoreid');
+           
+            $.ajax({
+                url: "{{ route('admin.restore') }}",
+                method: 'POST',
+                data: {' id': id , 'getId':restoreid },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    alert(response.message);
+                    $('#recycle'+restoreid).remove();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+    
+ </script>  
     
 @endpush

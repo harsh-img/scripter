@@ -12,6 +12,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "ixudra/curl": "^6.21",
+        "laravel-lang/lang": "^12.17",
         "laravel/framework": "^8.40",
         "laravel/passport": "^10.1",
         "laravel/socialite": "^5.6",

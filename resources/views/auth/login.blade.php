@@ -24,7 +24,7 @@
         <div class="right">
             <form action="{{ route('login') }}" id="" method="post">
                 @csrf
-
+{{-- 
                 <div class="form-group row">
                     <div class="col-md-6 offset-md-3">
                         <a href="{{ route('login.google') }}" class="btn btn-danger btn-block">Login with Google</a>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <p style="text-align: center">OR</p>
+                <p style="text-align: center">OR</p> --}}
                 <h1>SignIn</h1>
                 <p class="invalid-feedback" role="alert">
                     <strong id="Message"></strong>

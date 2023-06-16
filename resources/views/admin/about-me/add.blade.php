@@ -5,7 +5,7 @@
 	@else
 		Add 
 	@endif
-	Brand
+	About
 @endsection
 @section('content')
 <section class="content">
@@ -18,7 +18,7 @@
 					</div>
 					<div class="body">
 						<div class="btn-group top-head-btn">
-                            <a class="btn-primary" href="{{ url('admin/catalog/brand/list')}}">
+                            <a class="btn-primary" href="{{ url('admin/about-me/list')}}">
                                 <i class="fa fa-list"></i> About List
 							</a>
                         </div>

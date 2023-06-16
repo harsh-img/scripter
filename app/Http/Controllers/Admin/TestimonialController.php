@@ -102,30 +102,49 @@ class TestimonialController extends Controller
         return view('admin.testimonial.list',compact('result'));
     }
 
-public function update(Request $request,$id){
-    $result=\App\Models\Testimonial::find($id);
-    if($result){
-        return view('admin.testimonial.add', compact('result'));
-    }else{
-        return redirect()->back()->with('5fernsadminerror','Something went wrong. Please try again.');
+    public function update(Request $request,$id){
+        $result=\App\Models\Testimonial::find($id);
+        if($result){
+            return view('admin.testimonial.add', compact('result'));
+        }else{
+            return redirect()->back()->with('5fernsadminerror','Something went wrong. Please try again.');
+        }
+
     }
 
-}
+    public function changestatus(Request $request){
+        \App\Models\Testimonial::where('id',$request->post('id'))->update(['status'=>$request->post('status')]);
 
-public function changestatus(Request $request){
-    \App\Models\Testimonial::where('id',$request->post('id'))->update(['status'=>$request->post('status')]);
-
-    return response(array('message'=>'Testimonial status changed successfully.'),200);
-}
+        return response(array('message'=>'Testimonial status changed successfully.'),200);
+    }
 
 
-public function destroy($id)
-{
-    // dd($id);
-    \App\Models\Testimonial::where('id', $id)->delete();
-    return redirect('admin/testimonial/list');
+    public function destroy(Request $request,$id){
+		
+        $result=\App\Models\Testimonial::find($id);
+        
+        if($result){
+            
+            $restore = \App\Models\Testimonial::where('id',$id)->delete();
+            $about = \App\Models\Testimonial::withTrashed()->where([['deleted_at', '!=', null], ['id', $id]])->first();               
+           
+            if($restore && $about){
 
-     
-}
+                $recycle = new \App\Models\Recycle();
+
+                $recycle->testimonial_id = $id;
+                $recycle->save();
+
+            }
+            
+            return redirect()->back()->with('message','Testimonial deleted successfully.');
+            
+        }else{
+            
+            return redirect()->back()->with('message','Something went wrong. Please try again.');
+        }
+        
+
+    }
 
 }

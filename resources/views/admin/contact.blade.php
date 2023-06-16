@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title',__('Brand List'))
+@section('title',__('Contact List'))
 
 @section('content')
 

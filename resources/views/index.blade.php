@@ -15,35 +15,53 @@
     }
 </style>
 
+     <!-- page header -->
+     <header id="home" class="header">
+        <div class="overlay"></div>
+        <div class="header-content container">
+            <h1 class="header-title">
+                <span class="up">@lang('app.hi')!</span>
+                <span class="down">@lang('app.i') @lang('app.am') Harsh Aggarwal</span>
+            </h1>
+            <p class="header-subtitle">PHP DEVELOPER</p>
 
+            <button id= "scrolltoportfolio" class="btn btn-primary">@lang('app.visit') @lang('app.my') @lang('app.works')</button>
+        </div>
+    </header><!-- end of page header -->
+      <!-- header end -->
     <!-- about section -->
     <section class="section pt-0" id="about">
         <!-- container -->
         <div class="container text-center">
             <!-- about wrapper -->
+            @if(count($about) > 0)
+            
             <div class="about">
                 <div class="about-img-holder">
-                    <img src="assets/imgs/man.png" class="about-img"
+                    <img src="{{ asset('uploads/about/'.$about[0]->image) }}" class="about-img"
                         alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                    {{-- <img src="assets/imgs/man.png" class="about-img"
+                        alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page"> --}}
                 </div>
                 <div class="about-caption">
-                    <p class="section-subtitle">Who Am I ?</p>
-                    <h2 class="section-title mb-3">About Me</h2>
+                    <p class="section-subtitle">@lang('app.who') @lang('app.am') @lang('app.i') ?</p>
+                    <h2 class="section-title mb-3">@lang('app.about') @lang('app.me')</h2>
                     <p>
-                        {{$about[0]->short_description}}
+                        {{ $about[0]->short_description }}
                     </p>
-                    <a href="{{ route('resume.download') }}" class="btn btn-rounded btn btn-outline-primary mt-4">Download Resume</a>
-
+                    <a href="{{ route('resume.download') }}" class="btn btn-rounded btn btn-outline-primary mt-4">@lang('app.download') @lang('app.resume')</a>
                 </div>
-            </div><!-- end of about wrapper -->
-        </div><!-- end of container -->
+            </div>
+            @endif
+            <!-- end of about wrapper -->
+        </div>
     </section> <!-- end of about section -->
 
     <!-- service section -->
     <section class="section" id="service">
         <div class="container text-center">
-            <p class="section-subtitle">What I Do ?</p>
-            <h6 class="section-title mb-6">Service</h6>
+            <p class="section-subtitle">@lang('app.what') @lang('app.i') @lang('app.do') ?</p>
+            <h6 class="section-title mb-6">@lang('app.service')</h6>
             <!-- row -->
             <div class="row">
                 <div class="col-md-6 col-lg-3">
@@ -101,8 +119,8 @@
     <!-- portfolio section -->
     <section class="section" id="portfolio">
         <div class="container text-center">
-            <p class="section-subtitle">What I Did ?</p>
-            <h6 class="section-title mb-6">Portfolio</h6>
+            <p class="section-subtitle">@lang('app.what') @lang('app.i') @lang('app.did') ?</p>
+            <h6 class="section-title mb-6">@lang('app.portfolio')</h6>
             <!-- row -->
             <div class="row">
                 <div class="col-md-4">
@@ -152,11 +170,11 @@
             <!-- row -->
             <div class="row align-items-center">
                 <div class="col-sm offset-md-1 mb-4 mb-md-0">
-                    <h6 class="title text-light">Want to work with me?</h6>
-                    <p class="m-0 text-light">Always feel Free to Contact & Hire me</p>
+                    <h6 class="title text-light">@lang('app.want') @lang('app.to') @lang('app.work') @lang('app.with') @lang('app.me')?</h6>
+                    <p class="m-0 text-light">@lang('app.always') @lang('app.feel') @lang('app.free') @lang('app.to') @lang('app.contact') & @lang('app.hire') @lang('app.me')</p>
                 </div>
                 <div class="col-sm offset-sm-2 offset-md-3">
-                    <button id="scrollButton" data-target="{{ route('scroll.to.contact') }}" class="btn btn-lg my-font btn-light rounded">Hire Me</button>
+                    <button id="scrollButton" data-target="{{ route('scroll.to.contact') }}" class="btn btn-lg my-font btn-light rounded">@lang('app.hire') @lang('app.me')</button>
 
                 </div>
             </div> <!-- end of row -->
@@ -165,9 +183,10 @@
 
     <!-- testimonial section -->
     <section class="section" id="testmonial">
+        @if(count($testimonial)>0)
         <div class="container text-center">
-            <p class="section-subtitle">What Think Client About Me ?</p>
-            <h6 class="section-title mb-6">Testimonial</h6>
+            <p class="section-subtitle">@lang('app.what') @lang('app.think') @lang('app.client') @lang('app.about') @lang('app.me') ?</p>
+            <h6 class="section-title mb-6">@lang('app.testimonial')</h6>
 
             <!-- row -->
             <div class="row">
@@ -187,7 +206,8 @@
                 @endforeach
                 
             </div>
-        </div> <!-- end of container -->
+        </div> 
+        @endif<!-- end of container -->
     </section> <!-- end of testimonial section -->
 
     <!-- blog section -->
@@ -196,27 +216,27 @@
     <!-- contact section -->
     <section class="section" id="contactSection">
         <div class="container text-center" >
-            <p class="section-subtitle">How can you communicate?</p>
-            <h6 class="section-title mb-5">Contact Me</h6>
+            <p class="section-subtitle">@lang('app.how') @lang('app.can') @lang('app.you') @lang('app.communicate')?</p>
+            <h6 class="section-title mb-5">@lang('app.contact') @lang('app.me')</h6>
             <!-- contact form -->
             <form id = "contact" action="" class="contact-form col-md-10 col-lg-8 m-auto">
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-sm-6">
-                        <input type="text" size="50" class="form-control" placeholder="Your Name" name = "name" required>
+                        <input type="text" size="50" class="form-control" placeholder="@lang('app.your') @lang('app.name')" name = "name" required>
                     </div>
                     <div class="form-group col-sm-6">
-                        <input type="email" class="form-control" placeholder="Enter Email" name = "email" requried>
+                        <input type="email" class="form-control" placeholder="@lang('app.enter') @lang('app.email')" name = "email" requried>
                     </div>
                     <div class="form-group col-sm-12">
-                        <input type="text" class="form-control" placeholder="Enter Mobile no." name = "mobile" requried>
+                        <input type="text" class="form-control" placeholder="@lang('app.enter') @lang('app.mobile') @lang('app.number')" name = "mobile" requried>
                     </div>
                     <div class="form-group col-sm-12">
                         <textarea name = "description" id="comment" rows="6" class="form-control"
-                            placeholder="Write Something"></textarea>
+                            placeholder="@lang('app.write') @lang('app.something')"></textarea>
                     </div>
                     <div class="form-group col-sm-12 mt-3 d-flex">
-                        <input type="submit" value="Send Message" style = "margin:auto" class="btn btn-outline-primary rounded">
+                        <input type="submit" value="@lang('app.send') @lang('app.message')" style = "margin:auto" class="btn btn-outline-primary rounded">
                         <div class="spinner-border SubmitButtonLoader" role="status" style="margin: 6px;width: 1rem;height: 1rem; display:none">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -243,6 +263,13 @@ $(document).ready(function() {
 
             $('html, body').animate({
                 scrollTop: $('#contactSection').offset().top
+            }, 1000);
+        });
+        $('#scrolltoportfolio').click(function(e) {
+            e.preventDefault();
+
+            $('html, body').animate({
+                scrollTop: $('#portfolio').offset().top
             }, 1000);
         });
         

@@ -5,6 +5,12 @@ use Session;
 use DB;
 
 class commonHelper{
+
+    public static function setLocale(){
+        if (\Session::has('lang')) {
+            \App::setLocale(\Session::get('lang'));
+        }
+	}
 	
 	public static function callAPI($method, $url, $data=array(),$files=array()){
 
@@ -159,7 +165,29 @@ class commonHelper{
 	}
 	    
 
-	
+	public static function getaboutinfo($id)
+    {
+        $about = \App\Models\AboutMe::withTrashed()->find($id);
+        $testimonial = \App\Models\Testimonial::withTrashed()->find($id);;
+        
+        if ($about) {
+            $moduleName = 'About-me';
+            $name = $about->name;
+        }elseif($testimonial){
+
+            $moduleName = 'Testimonial';
+            $name = $testimonial->title;
+
+        } else {
+            $moduleName = 'N/A';
+            $name = 'N/A';
+        }
+        
+        return [
+            'moduleName' => $moduleName,
+            'name' => $name
+        ];
+    }
 	
 }
 

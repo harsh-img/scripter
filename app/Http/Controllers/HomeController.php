@@ -14,8 +14,13 @@ class HomeController extends Controller
         
         $about = \App\Models\AboutMe :: get();
         $testimonial = \App\Models\Testimonial ::where('status','Active')->get();
-       
+        \App\Helpers\commonHelper::setLocale();    
         return view('index',compact('about','testimonial'));
+    }
+
+    public function skills(){
+
+        return view('skills');
     }
 
     public function scrollToContact()
@@ -82,4 +87,14 @@ public function handle()
             $this->say('Nice to meet you '.$name);
         });
     }
+
+    public function localization(Request $request) {
+        
+		if($request->ajax() && $request->isMethod('post')){
+
+		    \Session::put('lang', $request->post('lang'));
+
+            return response(array('reload' => true), 200);
+        }
+	}
 }

@@ -101,8 +101,18 @@ class AboutController extends Controller
             
             if($result){
                 
-                \App\Models\AboutMe::where('id',$id)->delete();
-            
+                $restore = \App\Models\AboutMe::where('id',$id)->delete();
+                $about = \App\Models\AboutMe::withTrashed()->where([['deleted_at', '!=', null], ['id', $id]])->first();               
+               
+                if($restore && $about){
+
+                    $recycle = new \App\Models\Recycle();
+
+                    $recycle->about_id = $id;
+                    $recycle->save();
+
+                }
+                
                 return redirect()->back()->with('message','About Me deleted successfully.');
                 
             }else{

@@ -44,7 +44,18 @@ class DashboardController extends Controller
         // Get the count of unique visitors
         $uniqueVisitorCount = count($uniqueVisitors);
 
-        return view('admin.dashboard', compact('uniqueVisitorCount'));
+        $contact = \App\Models\Contact :: get();
+
+        $data = "";
+
+        foreach ($contact as $key => $val) {
+            $formattedDate = date('Y-m-d', strtotime($val->created_at));
+            $data .= "['" . $val->name . "'," . $formattedDate . "],";
+        }
+        
+        // $data = rtrim($data, ',');
+        // print_r($data);die; 
+        return view('admin.dashboard', compact('uniqueVisitorCount','data'));
     }
     
 }

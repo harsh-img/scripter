@@ -105,6 +105,7 @@
         </div>
     </div>
 
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
 
     <div class="container">
 
@@ -116,15 +117,6 @@
 </section> 
 
 
-
-
-
-
-
-
-
-
-
 @endsection
 
 
@@ -132,5 +124,28 @@
 <script src="{{ asset('admin-assets/js/chart.min.js')}}"></script>
 <script src="{{ asset('admin-assets/js/echarts.js')}}"></script>
 <script src="{{ asset('admin-assets/js/apexcharts.min.js') }}"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+         ['Name', 'Date'],
+        <?php echo $data; ?>
+      ]);
+
+    var options = {
+      title: 'Contacts',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
+</script>
 
 @endpush
